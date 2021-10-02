@@ -68,15 +68,15 @@ with os.scandir(path) as listOfEntries:
                                   + pathToCss + entry.name + "', array(), '1.0.0' );")
 
 
-file.write("    // Theme scripts" + '\n')
-for line in scriptsLines:
+file.write("    // Theme styles" + '\n')
+for line in stylesLines:
     file.write(line + '\n')
 
 for line in range(0, 2):
     file.write('\n')
 
-file.write("    // Theme styles" + '\n')
-for line in stylesLines:
+file.write("    // Theme scripts" + '\n')
+for line in scriptsLines:
     file.write(line + '\n')
 
 for line in range(0, 2):
