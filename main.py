@@ -44,6 +44,13 @@ fontsLines = []
 
 file.write("/**" + '\n' + "* Enqueue scripts and styles." + '\n' + "*/" + '\n')
 file.write("function " + functionName + "() {" + '\n')
+file.write("    " + "$is_release = false;" + '\n')
+file.write("    " + "if(is_release){" + '\n')
+file.write("        " + '$cashe_version = "1.0.0";' + '\n')
+file.write("    " + "}else{" + '\n')
+file.write("        " + "$cashe_version = time();" + '\n')
+file.write("    " + "}" + '\n')
+file.write('\n')
 
 with os.scandir(path) as listOfEntries:
     for entry in listOfEntries:
@@ -55,17 +62,17 @@ with os.scandir(path) as listOfEntries:
 
                 scriptsLines.append("    wp_enqueue_script('" + get_name(entry.name)
                                     + "', get_template_directory_uri() . '" + pathToJs + entry.name
-                                    + "', array(), '1.0.0', true );")
+                                    + "', array(), $cashe_version, true );")
 
             elif ".css" in entry.name:
                 stylesLines.append("    wp_enqueue_style('" + get_name(entry.name)
                                    + "', get_template_directory_uri() . '"
-                                   + pathToCss + entry.name + "', array(), '1.0.0' );")
+                                   + pathToCss + entry.name + "', array(), $cashe_version );")
 
             elif is_font(entry.name):
                 fontsLines.append("    wp_enqueue_style('" + get_name(entry.name)
                                   + "', get_template_directory_uri() . '"
-                                  + pathToCss + entry.name + "', array(), '1.0.0' );")
+                                  + pathToCss + entry.name + "', array(), $cashe_version );")
 
 
 file.write("    // Theme styles" + '\n')
